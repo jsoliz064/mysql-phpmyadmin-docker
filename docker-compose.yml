@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    hostname: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/backup:/var/lib/mysql
+    networks:
+      - mitienda-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    hostname: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - UPLOAD_LIMIT=100M
+    volumes:
+      - ./phpmyadmin/config.inc.php:/etc/phpmyadmin/config.inc.php
+    depends_on:
+      - mysql
+    networks:
+      - mitienda-network
+
+networks:
+  mitienda-network:
+    external: true
