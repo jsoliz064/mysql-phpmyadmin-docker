@@ -1,2 +1,2 @@
-/mysql/backup
-/.env
+/v-mysql
+.env
