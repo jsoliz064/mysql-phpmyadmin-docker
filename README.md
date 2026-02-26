@@ -9,7 +9,7 @@ cp .env.example .env
 2. Crear network de docker
 
 ```
-docker network mysql-network
+docker network create mysql-network
 ```
 
 3. Run
